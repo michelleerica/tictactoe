@@ -1,32 +1,19 @@
 console.log('test')
 
-// var $ax = $('#ax');
-//
-//
-// // //this works for single input - all cells identified as class 'cell'
-// var colorChange = $(function () {
-//     $('.cell').css('background-color', '#000000');
-//     });
-// });
 
-
-
-// //alternating clicks
-// var altClicks = $(function(){
-//   var hits = 0; //->variable
-//     // Everything below this line is called "binding" a handler to an event (click event)
-//   $('.cell').click(function(){ // --> This whole function is the handler or listener
-//   if  (hits % 2 !== 0) //for hits 2,4,6,8 etc. Also the condition
-//     {$('.cell').css('background-color', '#000000');
-//     console.log('is this working?');
-//     // $('#content2').fadeOut("slow");
-//   } else { // for hits 1,3,5,7
-//   $('.cell').css('background-color', 'green');
-//
-//   console.log('else')
-//     // $('#content2').fadeIn("slow");
-//           }
-//          hits++;
-//         return false;
-//     });
-// });
+var altClicks = $(function(){
+  var hits = 0; // keep track of clicks
+  $('.cell').click(function(){ //
+  if  (hits % 2 !== 0) { //for hits 2,4,6,8 etc
+    var $imgX = $('<img>').attr('src', 'http://www.freeiconspng.com/uploads/letter-o-icon-png-7.png');
+    $(this).append( $imgX );
+    console.log('is this working?');
+  } else { // for hits 1,3,5,7
+      var $imgO = $('<img>').attr('src', 'http://vignette2.wikia.nocookie.net/animal-jam-clans-1/images/2/2e/Transparent_City_Sticker.png/revision/latest?cb=20170111222644');
+      $(this).append( $imgO);
+      console.log('else')
+  }
+   hits++;
+   return false;
+    });
+});

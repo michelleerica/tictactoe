@@ -1,5 +1,5 @@
 body{
-  background-color: rgb(75, 185, 209);
+  background-color: rgb(254, 226, 82);
   text-align: center;
 }
 
@@ -26,3 +26,9 @@ body{
 .cell:nth-child(3n) {
   background-color: white;
 }*/
+
+img {
+  height:120px;
+  width: 120px;
+  margin: 0 auto;
+}
