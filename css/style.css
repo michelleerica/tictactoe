@@ -1,0 +1,28 @@
+body{
+  background-color: rgb(75, 185, 209);
+  text-align: center;
+}
+
+.grid {
+  display: flex;                       /* establish flex container */
+  flex-wrap: wrap;                     /* enable flex items to wrap */
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 450px;
+
+}
+.cell {
+  flex: 0 0 33%;               /* don't grow, don't shrink, width */
+  height: 150px;
+  width: 150px;
+  margin-bottom: 1px;
+  background-color: white;
+}
+
+#ax {
+  background-color: orange;
+}
+/*keep for later
+.cell:nth-child(3n) {
+  background-color: white;
+}*/
