@@ -36,9 +36,9 @@ var gameLogic = {
     gameLogic.game[x] = 2;
   },
 
-  checkWin: function() {
-    if ()
-  },
+  // checkWin: function() {
+  //   console.log(gameLogic.che[win]);
+  // },
 
   altClicks: $(function(){
     var hits = 0; // keep track of clicks
@@ -47,7 +47,7 @@ var gameLogic = {
         var $imgX = $('<img>').attr('src', xImage);
         $(this).append( $imgX );
         gameLogic.trackPlayerTwo(this.id);
-
+        // console.log()
       } else { // for hits 1,3,5,7
           var $imgO = $('<img>').attr('src', oImage);
           $(this).append( $imgO);

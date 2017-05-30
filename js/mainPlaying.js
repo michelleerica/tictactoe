@@ -15,6 +15,18 @@ $(document).ready(function () {
 
 //game object
 var gameLogic = {
+  game: [0,0,0,0,0,0,0,0,0], // game array
+
+  win: [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6],
+  ],
 
   trackPlayerOne: function (y) {
     gameLogic.game[y] = 1;
@@ -23,11 +35,19 @@ var gameLogic = {
   trackPlayerTwo: function (x) {
     gameLogic.game[x] = 2;
   },
-
+  //
   checkWin: function() {
+    for (var i = 0; i < this.game.length; i++) {
+    	var index = parseInt(this.win[i]);
+    	console.log(this.game[index])}
 
-  },
-  game: [0,0,0,0,0,0,0,0,0], // game array
+    // for (var i = 0; i < gameLogic.win.length; i++) {
+    //     for (var j = 0; j < gameLogic.win[i].length; j++) {
+    //       if ()(gameLogic.win[i][j])
+    //     }
+    //   }
+
+    },
 
   altClicks: $(function(){
     var hits = 0; // keep track of clicks
@@ -42,31 +62,19 @@ var gameLogic = {
           $(this).append( $imgO);
           gameLogic.trackPlayerOne(this.id);
       }
+      gameLogic.checkWin();
       console.log(gameLogic.game);
       hits++;
      return false;
     });
   }),
-  win: {
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [0,4,8],
-    [2,4,6],
-  }
+
 }
 
 }); //end of .ready
 
 //
-
-
-// addFunction: function(){
-//     // var $cell = $('.cell');
-//     var tracker = $('.cell').attr('id');
-//     console.log(tracker + "from addFunction");
-//     return tracker;
-//   },
+// //loop for returning contents of particular indicies of an array, using the indices specified in another array...
+// for (var i = 0; i < testindex.length; i++) {
+// 	var index = parseInt(testindex[i]);
+// 	console.log(testArray[index])}
