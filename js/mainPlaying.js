@@ -12,15 +12,6 @@ $(document).ready(function () {
 //       console.log(tracker + "from tracker")
 // /////
 
-//to obtain div IDs
-var addFunction = function(){
-    var tracker = $(this).attr('id');
-    console.log(tracker + "from addFunction");
-
-    return tracker;
-  }
-var divTracker = $('.cell').on('click', addFunction);
-
 
 //game object
 var gameLogic = {
@@ -41,26 +32,42 @@ var gameLogic = {
   altClicks: $(function(){
     var hits = 0; // keep track of clicks
     $('.cell').click(function(){ //
-    if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
-      var $imgX = $('<img>').attr('src', xImage);
-      $(this).append( $imgX );
-      gameLogic.trackPlayerTwo(addFunction());
+      if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
+        var $imgX = $('<img>').attr('src', xImage);
+        $(this).append( $imgX );
+        gameLogic.trackPlayerTwo(gameLogic.addFunction);
+        debugger
+      } else { // for hits 1,3,5,7
+          var $imgO = $('<img>').attr('src', oImage);
+          $(this).append( $imgO);
+          gameLogic.trackPlayerOne(gameLogic.addFunction);
+      }
       console.log(gameLogic.game);
-    } else { // for hits 1,3,5,7
-        var $imgO = $('<img>').attr('src', oImage);
-        $(this).append( $imgO);
-        gameLogic.trackPlayerTwo(addFunction());
-        console.log(gameLogic.game);
 
-
-
-    }
-     hits++;
+      hits++;
      return false;
-      });
-  })
+    });
+  }),
 
+  //to obtain div IDs
+  add: $('.cell').click(function(event) {
+    var id = $(this).attr('id');
+    console.log(id + "from addFunction");
+    return id;
+  // divTracker: $('.cell').on('click', gameLogic.addFunction),
+
+
+})
 }
 
-
 }); //end of .ready
+
+//
+
+
+// addFunction: function(){
+//     // var $cell = $('.cell');
+//     var tracker = $('.cell').attr('id');
+//     console.log(tracker + "from addFunction");
+//     return tracker;
+//   },
