@@ -1,9 +1,7 @@
-console.log('test')
-
-
 var oImage = 'http://static.wixstatic.com/media/c09ee4_6b9a876a03844e25a314e5ed36d649a3.png';
-var xImage = 'http://vignette2.wikia.nocookie.net/animal-jam-clans-1/images/2/2e/Transparent_City_Sticker.png/revision/latest?cb=20170111222644'
+var xImage = 'http://vignette2.wikia.nocookie.net/animal-jam-clans-1/images/2/2e/Transparent_City_Sticker.png/revision/latest?cb=20170111222644';
 
+var aImage = "http://ph.phonebooky.com/blog/wp-content/uploads/2015/03/balloons-background.png";
 var hits = 0; // keep track of clicks
 
 $(document).ready(function () {
@@ -21,7 +19,6 @@ $(document).ready(function () {
         gameLogic.trackPlayerOne(this.id);
         gameLogic.winDetector(1);
     }
-
 
     console.log(gameLogic.game);
     hits++;
@@ -86,8 +83,8 @@ var gameLogic = {
 
       var winner = false;
       if (aVal === player && bVal === player && cVal === player){
-        alert("player " + player + " has won the game!");
-        winner = true;
+      gameLogic.notification();
+       winner = true;
         return winner;
       }
       else if (winner === false)
@@ -95,26 +92,16 @@ var gameLogic = {
           { alert("It's a draw. No one wins")
       return}
       }
-    // } else {alert()}
     // debugger;
-    // return possWins;
-    }
+      }
+    },
+  notification: function() {
+    var $gameboard = $('.cell');
+    $gameboard.css('backgroundColor', 'red');
+    // var $winner = $('<h3>').addClass('winner').attr('', aImage);
+    // $('body').append( $imga);
+
   }
-  // reset: {gameLogic.game = [0,0,0,0,0,0,0,0,0]} // game array
-
-  //
-  // identifyWinner: function(player) {
-  //   if (gameLogic.winDetector === true) {
-  //     console.log('winner');
-  //     alert("player" + player + " has won the game!");
-  //   }
-
-  //
-  // checkWin: function () {
-  //   //check if any of the winArrayConverts appear in the arrayConverter1 or 2.. if true -> WIN
-
-
-    // console.log(gameLogic.checkGameBoardAgainstWinArray([[1,2,3],[3,4,5]], [1,2,3])); // true
-} //close object
+} //close objec
 
 }); //end of .ready
