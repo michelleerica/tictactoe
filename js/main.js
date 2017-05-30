@@ -1,4 +1,4 @@
-var oImage = 'http://static.wixstatic.com/media/c09ee4_6b9a876a03844e25a314e5ed36d649a3.png';
+var oImage = 'http://heartbleed.com/heartbleed.png';
 var xImage = 'http://vignette2.wikia.nocookie.net/animal-jam-clans-1/images/2/2e/Transparent_City_Sticker.png/revision/latest?cb=20170111222644';
 
 var aImage = "http://ph.phonebooky.com/blog/wp-content/uploads/2015/03/balloons-background.png";
