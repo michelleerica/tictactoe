@@ -17,16 +17,16 @@ $(document).ready(function () {
 var gameLogic = {
   game: [0,0,0,0,0,0,0,0,0], // game array
 
-  win: [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [0,4,8],
-    [2,4,6],
-  ],
+  win: {
+    one: [0,1,2],
+    two: [3,4,5],
+    three: [6,7,8],
+    four: [0,3,6],
+    five: [1,4,7],
+    six: [2,5,8],
+    seven: [0,4,8],
+    eight: [2,4,6],
+  },
 
   trackPlayerOne: function (y) {
     gameLogic.game[y] = 1;
@@ -49,15 +49,43 @@ var gameLogic = {
           var $imgO = $('<img>').attr('src', oImage);
           $(this).append( $imgO);
           gameLogic.trackPlayerOne(this.id);
+        gameLogic.arrayConvertp1();
+        console.log("working" +gameLogic.arrayConvertp1());
       }
       console.log(gameLogic.game);
       hits++;
      return false;
     });
   }),
+  arrayConvertp1: function (){
+  var indexes = [];
+  for(var i=0; i<gameLogic.game.length; i++) {
+    if(gameLogic.game[i] === 2)
+       indexes.push(i);
+     }
+     var listOne = indexes.join(',');
+     console.log(listOne);
+     return listOne;
+   },
+
+   arrayConvertp2: function (){
+   var indexes = [];
+   for(var i=0; i<gameLogic.game.length; i++) {
+     if(gameLogic.game[i] === 1)
+        indexes.push(i);
+      }
+      var listOne = indexes.join(',');
+      console.log(listOne);
+      return listOne;    },
+
+  winArrayConvert: function () { //converts win objects into individual lines to compare against
+     for (var prop in gameLogic.win) {
+      var m = `${gameLogic.win[prop]}`;
+      console.log(m);
+      } //for loop to print out all lines in win objects
 
 }
-
+}
 }); //end of .ready
 
 //
