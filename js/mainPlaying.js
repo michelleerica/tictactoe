@@ -31,33 +31,32 @@ var gameLogic = {
 
   altClicks: $(function(){
     var hits = 0; // keep track of clicks
-    $('.cell').click(function(){ //
+    $('.cell').click(function(){
       if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
         var $imgX = $('<img>').attr('src', xImage);
         $(this).append( $imgX );
-        gameLogic.trackPlayerTwo(gameLogic.addFunction);
-        debugger
+        gameLogic.trackPlayerTwo(this.id);
+
       } else { // for hits 1,3,5,7
           var $imgO = $('<img>').attr('src', oImage);
           $(this).append( $imgO);
-          gameLogic.trackPlayerOne(gameLogic.addFunction);
+          gameLogic.trackPlayerOne(this.id);
       }
       console.log(gameLogic.game);
-
       hits++;
      return false;
     });
   }),
-
-  //to obtain div IDs
-  add: $('.cell').click(function(event) {
-    var id = $(this).attr('id');
-    console.log(id + "from addFunction");
-    return id;
-  // divTracker: $('.cell').on('click', gameLogic.addFunction),
-
-
-})
+  win: {
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6],
+  }
 }
 
 }); //end of .ready
