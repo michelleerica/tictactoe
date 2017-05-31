@@ -9,25 +9,28 @@ var winO = 0; // keep track of O wins
 
 $(document).ready(function () {
   $('.cell').on("click", function(){
-    if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
-      var $imgX = $('<img>').attr('src', xImage);
-      $(this).append( $imgX );
-      $('img').addClass("inPlay");
-      gameLogic.trackPlayerTwo(this.id);
-      gameLogic.winDetector(2);
-      // debugger;
+    //   //if the box has an image...
+    //   alert(pick another square!)
+    // } else {
+      if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
+        var $imgX = $('<img>').attr('src', xImage);
+        $(this).append( $imgX );
+        $('img').addClass("inPlay");
+        gameLogic.trackPlayerTwo(this.id);
+        gameLogic.winDetector(2);
+        // debugger;
 
-    } else if (hits % 2 === 0) { // for hits 1,3,5,7
-      var $imgO = $('<img>').attr('src', oImage);
-      $(this).append( $imgO);
-      $('img').addClass("inPlay");
-      gameLogic.trackPlayerOne(this.id);
-      gameLogic.winDetector(1);
-    }
+      } else if (hits % 2 === 0) { // for hits 1,3,5,7
+        var $imgO = $('<img>').attr('src', oImage);
+        $(this).append( $imgO);
+        $('img').addClass("inPlay");
+        gameLogic.trackPlayerOne(this.id);
+        gameLogic.winDetector(1);
+      }
 
-    console.log(gameLogic.game);
-    hits++;
-
+      console.log(gameLogic.game);
+      hits++;
+    // }
   });
 
 //reset
@@ -35,12 +38,12 @@ $(document).ready(function () {
     gameLogic.game = [0,0,0,0,0,0,0,0,0],
     $('.inPlay').remove();
     console.log(gameLogic.game)
-
     $('.cell').on("click").css('backgroundColor', '#7586B7');
     $('.animated bounce flash').remove();
     $("body").css('backgroundColor', '#A7CAB1');
     $("h1").html("Play again");
     $('.animated bounce swing rollIn').remove ();
+    hits = 0;
   });
 
 var gameLogic = {
@@ -95,6 +98,8 @@ var gameLogic = {
       if (aVal === player && bVal === player && cVal === player){
         gameLogic.winNotification(player);
         // debugger;
+        // $('.cell').off('click');
+
         return player;
 
       } else if ((aVal !== player || bVal !== player || cVal !== player) && (hits >= 8 )) {
