@@ -1,22 +1,14 @@
-var oImage = 'http://heartbleed.com/heartbleed.png';
-var xImage = 'http://vignette2.wikia.nocookie.net/animal-jam-clans-1/images/2/2e/Transparent_City_Sticker.png/revision/latest?cb=20170111222644';
+var oImage = 'img/heartbleed.png';
+var xImage = 'img/xicon.png';
 
-var aImage = "http://ph.phonebooky.com/blog/wp-content/uploads/2015/03/balloons-background.png";
+
 var hits = 0; // keep track of clicks
+var winX = 0; // keep track of X wins
+var winO = 0; // keep track of O wins
 
-// var n = 0;
-// $( "div" ).one( "click", function() {
-//   var index = $( "div" ).index( this );
-//   $( this ).css({
-//     borderStyle: "inset",
-//     cursor: "auto"
-//   });
-//   $( "p" ).text( "Div at index #" + index + " clicked." +
-//     " That's " + (++n) + " total clicks." );
-// });
 
 $(document).ready(function () {
-  $('.cell').one("click", function(){
+  $('.cell').on("click", function(){
     if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
       var $imgX = $('<img>').attr('src', xImage);
       $(this).append( $imgX );
@@ -26,11 +18,11 @@ $(document).ready(function () {
       // debugger;
 
     } else if (hits % 2 === 0) { // for hits 1,3,5,7
-        var $imgO = $('<img>').attr('src', oImage);
-        $(this).append( $imgO);
-        $('img').addClass("inPlay");
-        gameLogic.trackPlayerOne(this.id);
-        gameLogic.winDetector(1);
+      var $imgO = $('<img>').attr('src', oImage);
+      $(this).append( $imgO);
+      $('img').addClass("inPlay");
+      gameLogic.trackPlayerOne(this.id);
+      gameLogic.winDetector(1);
     }
 
     console.log(gameLogic.game);
@@ -38,10 +30,17 @@ $(document).ready(function () {
 
   });
 
+//reset
   $( "#reset" ).on("click", function() {
     gameLogic.game = [0,0,0,0,0,0,0,0,0],
-    $( ".cell" ).remove('.inPlay');
-    console.log(gameLogic.game);
+    $('.inPlay').remove();
+    console.log(gameLogic.game)
+
+    $('.cell').on("click").css('backgroundColor', '#7586B7');
+    $('.animated bounce flash').remove();
+    $("body").css('backgroundColor', '#A7CAB1');
+    $("h1").html("Play again");
+    $('.animated bounce swing rollIn').remove ();
   });
 
 var gameLogic = {
@@ -63,7 +62,6 @@ var gameLogic = {
     if(gameLogic.game[i] === 1){
      indexes.push(i);
      var listOne = indexes.join(',');
-     console.log("test line 49: " +listOne);
      return listOne;
      console.log(gameLogic.game)
    } // close if
@@ -77,7 +75,6 @@ var gameLogic = {
   if(gameLogic.game[i] === 2){
     indexes.push(i);
     var listTwo = indexes.join(',');
-    console.log("test line 62: " +listTwo);
     return listTwo;
     console.log(gameLogic.game);
     } //close if
@@ -96,31 +93,32 @@ var gameLogic = {
       var cVal = gameLogic.game[c];
 
       if (aVal === player && bVal === player && cVal === player){
-      gameLogic.winNotification();
-      // debugger;
+        gameLogic.winNotification(player);
+        // debugger;
         return player;
-      }
-      else if ((aVal !== player || bVal !== player || cVal !== player) && (hits >= 8 )) {
-      gameLogic.drawNotification();}
-    // debugger;
-      }
-    },
 
-  winNotification: function() {
+      } else if ((aVal !== player || bVal !== player || cVal !== player) && (hits >= 8 )) {
+        gameLogic.drawNotification();
+      }
+    // debugger;
+    }
+  },
+
+  winNotification: function(winner) {
     var $gameboard = $('.cell');
     $gameboard
       .css('backgroundColor', 'red')
-      .off('click');
-    $('.grid').addClass('animated bounce flash'); //disables click event
+      // .off('click');
+    $('.grid').addClass('animated bounce flash');
     $("body").css('backgroundColor', 'red');
-    $("h1").html("Player " + gameLogic.winDetector() + " won!").addClass('animated bounce swing rollIn');
+    $("h1").html("Player " + winner + " won!").addClass('animated bounce swing rollIn');
   },
 
   drawNotification: function() {
     var $gameboard = $('.cell');
     $gameboard
       .css('backgroundColor', 'grey')
-      .off('click');
+      // .off('click');
     $('.grid').addClass('animated bounce flash');
     $("body").css('backgroundColor', 'rgba(121, 119, 122, 0.42)');
     $("h1").html("It's a draw").addClass('animated bounce swing rollIn');
