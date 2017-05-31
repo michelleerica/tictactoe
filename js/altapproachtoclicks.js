@@ -17,12 +17,10 @@ var hits = 0; // keep track of clicks
 
 $(document).ready(function () {
   $('.cell').one("click", function(){
-    if ((hits >= 8) && (gameLogic.winDetector() !== true)) {
-      alert('draw')
-      var $imgX = $('<img>').attr('src', xImage);
-      $(this).append( $imgX );
-    }
-    else if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
+    // if ((hits >= 9) && (gameLogic.winDetector() !== true)) {
+    //   alert('draw')}
+    // else
+    if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
       var $imgX = $('<img>').attr('src', xImage);
       $(this).append( $imgX );
       gameLogic.trackPlayerTwo(this.id);
@@ -94,9 +92,13 @@ var gameLogic = {
 
       if (aVal === player && bVal === player && cVal === player){
       gameLogic.notification();
-        alert(player + 'winner');
-        return true;
+        alert(player +'winner');
+
+        return player;
       }
+      else if ((aVal !== player || bVal !== player || cVal !== player) && hits >= 8 )
+        {alert ('draw');
+        return false;}
       // else if (winner === false)
       //   { if (hits>=8)
       //     { alert("It's a draw. No one wins")
@@ -107,7 +109,11 @@ var gameLogic = {
     },
   notification: function() {
     var $gameboard = $('.cell');
+    var player = this.winDetector();
     $gameboard.css('backgroundColor', 'red');
+    $(".cell").off('click'); //disables click event
+    $("body").css('backgroundColor', 'rgba(121, 119, 122, 0.42)');
+    $("h1").html("Player " + player + " won!");
     // var $winner = $('<h3>').addClass('winner').attr('', aImage);
     // $('body').append( $imga);
 
