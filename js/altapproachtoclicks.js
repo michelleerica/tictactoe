@@ -4,12 +4,25 @@ var xImage = 'http://vignette2.wikia.nocookie.net/animal-jam-clans-1/images/2/2e
 var aImage = "http://ph.phonebooky.com/blog/wp-content/uploads/2015/03/balloons-background.png";
 var hits = 0; // keep track of clicks
 
-$(document).ready(function () {
+// var n = 0;
+// $( "div" ).one( "click", function() {
+//   var index = $( "div" ).index( this );
+//   $( this ).css({
+//     borderStyle: "inset",
+//     cursor: "auto"
+//   });
+//   $( "p" ).text( "Div at index #" + index + " clicked." +
+//     " That's " + (++n) + " total clicks." );
+// });
 
-  $('.cell').click(function(){
-    if ((hits === 9) && (gameLogic.winDetector(2) === false) && (gameLogic.winDetector(1) === false)){
-      console.log('draw');
-    }else if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
+$(document).ready(function () {
+  $('.cell').one("click", function(){
+    if ((hits >= 8) && (gameLogic.winDetector() !== true)) {
+      alert('draw')
+      var $imgX = $('<img>').attr('src', xImage);
+      $(this).append( $imgX );
+    }
+    else if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
       var $imgX = $('<img>').attr('src', xImage);
       $(this).append( $imgX );
       gameLogic.trackPlayerTwo(this.id);
@@ -21,15 +34,11 @@ $(document).ready(function () {
         $(this).append( $imgO);
         gameLogic.trackPlayerOne(this.id);
         gameLogic.winDetector(1);
-    } else if ((hit === 8) && (gameLogic() === false)) {
-      console.log('draw')
     }
 
     console.log(gameLogic.game);
     hits++;
-    if (gameLogic.winDetector() === true){
-      alert("gameover!");
-    }
+
   });
 
 var gameLogic = {
@@ -85,7 +94,7 @@ var gameLogic = {
 
       if (aVal === player && bVal === player && cVal === player){
       gameLogic.notification();
-        console.log('winner');
+        alert(player + 'winner');
         return true;
       }
       // else if (winner === false)
