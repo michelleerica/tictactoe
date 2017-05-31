@@ -91,19 +91,19 @@ var gameLogic = {
       var cVal = gameLogic.game[c];
 
       if (aVal === player && bVal === player && cVal === player){
-      gameLogic.notification();
+      gameLogic.winNotification();
       // debugger;
-
-        // alert('Player ' + player +' is the winner!');
         return player;
       }
       else if ((aVal !== player || bVal !== player || cVal !== player) && hits >= 8 )
-        {alert ('draw');
+        {
+          gameLogic.drawNotification();
         return false;}
     // debugger;
       }
     },
-  notification: function() {
+
+  winNotification: function() {
     var $gameboard = $('.cell');
     var player = gameLogic.winDetector();
     $gameboard
@@ -112,12 +112,20 @@ var gameLogic = {
     $('.grid').addClass('animated bounce flash'); //disables click event
     // $(".div").addClass('bounce');
     $("body").css('backgroundColor', 'rgba(121, 119, 122, 0.42)');
-    $("h1").html("Winner!").addClass('animated bounce swing rollIn');
+    $("h1").html("Player " + gameLogic.winDetector() + " won!").addClass('animated bounce swing rollIn');
+  },
 
-
-
-
+  drawNotification: function() {
+    var $gameboard = $('.cell');
+    $gameboard
+      .css('backgroundColor', 'grey')
+      .off('click');
+    $('.grid').addClass('animated bounce flash'); //disables click event
+    // $(".div").addClass('bounce');
+    $("body").css('backgroundColor', 'rgba(121, 119, 122, 0.42)');
+    $("h1").html("It's a draw").addClass('animated bounce swing rollIn');
   }
-} //close objec
+
+} //close object
 
 }); //end of .ready
