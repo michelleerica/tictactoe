@@ -17,12 +17,10 @@ var hits = 0; // keep track of clicks
 
 $(document).ready(function () {
   $('.cell').one("click", function(){
-    // if ((hits >= 9) && (gameLogic.winDetector() !== true)) {
-    //   alert('draw')}
-    // else
     if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
       var $imgX = $('<img>').attr('src', xImage);
       $(this).append( $imgX );
+      $('img').addClass("inPlay");
       gameLogic.trackPlayerTwo(this.id);
       gameLogic.winDetector(2);
       // debugger;
@@ -30,6 +28,7 @@ $(document).ready(function () {
     } else if (hits % 2 === 0) { // for hits 1,3,5,7
         var $imgO = $('<img>').attr('src', oImage);
         $(this).append( $imgO);
+        $('img').addClass("inPlay");
         gameLogic.trackPlayerOne(this.id);
         gameLogic.winDetector(1);
     }
@@ -37,6 +36,12 @@ $(document).ready(function () {
     console.log(gameLogic.game);
     hits++;
 
+  });
+
+  $( "#reset" ).on("click", function() {
+    gameLogic.game = [0,0,0,0,0,0,0,0,0],
+    $( ".cell" ).remove('.inPlay');
+    console.log(gameLogic.game);
   });
 
 var gameLogic = {
@@ -95,23 +100,19 @@ var gameLogic = {
       // debugger;
         return player;
       }
-      else if ((aVal !== player || bVal !== player || cVal !== player) && hits >= 8 )
-        {
-          gameLogic.drawNotification();
-        return false;}
+      else if ((aVal !== player || bVal !== player || cVal !== player) && (hits >= 8 )) {
+      gameLogic.drawNotification();}
     // debugger;
       }
     },
 
   winNotification: function() {
     var $gameboard = $('.cell');
-    var player = gameLogic.winDetector();
     $gameboard
       .css('backgroundColor', 'red')
       .off('click');
     $('.grid').addClass('animated bounce flash'); //disables click event
-    // $(".div").addClass('bounce');
-    $("body").css('backgroundColor', 'rgba(121, 119, 122, 0.42)');
+    $("body").css('backgroundColor', 'red');
     $("h1").html("Player " + gameLogic.winDetector() + " won!").addClass('animated bounce swing rollIn');
   },
 
@@ -120,11 +121,10 @@ var gameLogic = {
     $gameboard
       .css('backgroundColor', 'grey')
       .off('click');
-    $('.grid').addClass('animated bounce flash'); //disables click event
-    // $(".div").addClass('bounce');
+    $('.grid').addClass('animated bounce flash');
     $("body").css('backgroundColor', 'rgba(121, 119, 122, 0.42)');
     $("h1").html("It's a draw").addClass('animated bounce swing rollIn');
-  }
+  },
 
 } //close object
 
