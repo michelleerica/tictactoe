@@ -92,30 +92,30 @@ var gameLogic = {
 
       if (aVal === player && bVal === player && cVal === player){
       gameLogic.notification();
-        alert(player +'winner');
+      // debugger;
 
+        // alert('Player ' + player +' is the winner!');
         return player;
       }
       else if ((aVal !== player || bVal !== player || cVal !== player) && hits >= 8 )
         {alert ('draw');
         return false;}
-      // else if (winner === false)
-      //   { if (hits>=8)
-      //     { alert("It's a draw. No one wins")
-      // return}
-      // }
     // debugger;
       }
     },
   notification: function() {
     var $gameboard = $('.cell');
-    var player = this.winDetector();
-    $gameboard.css('backgroundColor', 'red');
-    $(".cell").off('click'); //disables click event
+    var player = gameLogic.winDetector();
+    $gameboard
+      .css('backgroundColor', 'red')
+      .off('click');
+    $('.grid').addClass('animated bounce flash'); //disables click event
+    // $(".div").addClass('bounce');
     $("body").css('backgroundColor', 'rgba(121, 119, 122, 0.42)');
-    $("h1").html("Player " + player + " won!");
-    // var $winner = $('<h3>').addClass('winner').attr('', aImage);
-    // $('body').append( $imga);
+    $("h1").html("Winner!").addClass('animated bounce swing rollIn');
+
+
+
 
   }
 } //close objec
