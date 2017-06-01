@@ -6,25 +6,27 @@ var hits = 0; // keep track of clicks
 var win1 = 0; // keep track of P1 wins
 var win2 = 0; // keep track of P2 wins
 var draw = 0; // keep track of draw
-
+var turn = true
 
 $(document).ready(function () {
   $('.cell').on("click", function(){
     if (gameLogic.game[this.id] === 0) {
-      if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
+      if (turn === true) { //for hits 2,4,6,8 etc
         var $imgX = $('<img>').attr('src', xImage);
         $(this).append( $imgX );
         $('img').addClass("inPlay");
         gameLogic.trackPlayerTwo(this.id);
         gameLogic.winDetector(2);
+        turn = false;
         // debugger;
 
-      } else if (hits % 2 === 0) { // for hits 1,3,5,7
+      } else if (turn === false) { // for hits 1,3,5,7
         var $imgO = $('<img>').attr('src', oImage);
         $(this).append( $imgO);
         $('img').addClass("inPlay");
         gameLogic.trackPlayerOne(this.id);
         gameLogic.winDetector(1);
+        turn=true;
       }
       console.log(gameLogic.game);
       hits++;
@@ -155,7 +157,6 @@ var gameLogic = {
     // $('.cell').off('click');
 
   }
-
 
 } //close object
 
