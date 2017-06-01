@@ -109,13 +109,13 @@ var gameLogic = {
       if (win){
         gameLogic.winNotification(player);
         return player;
-      }
-    } // for
+        }
+      } // for
 
-    if ( !win && hits >= 8 ){
+    if ( !win && hits >= 4 ){
         gameLogic.drawNotification();
         return false;
-    }
+      }
   },
 
   //function to alert of win
