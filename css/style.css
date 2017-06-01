@@ -7,54 +7,30 @@ body{
   font-family: 'Baloo Bhaina', cursive;
 }
 
+div, button{
+  border-radius: 5em 4em 8em 14em / 2em 20em 8em 10em;
+    -moz-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
+    -webkit-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
+  position:relative;
+}
+
 .grid {
-  display: flex;                       /* establish flex container */
-  flex-wrap: wrap;                     /* enable flex items to wrap */
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   margin: 0 auto;
   width: 450px;
   position:relative;
   z-index: 2;
   background-color: none;
-
 }
 
-.win {
-  display: flex;                       /* establish flex container */
-  flex-wrap: wrap;                     /* enable flex items to wrap */
-  justify-content: space-around;
-  margin: 0 auto;
-  width: 450px;
-  height: 450px;
-  color: black;
-  background-color: none;
-  position:relative;
-  z-index: 99 !important;
-}
 .cell {
-  flex: 0 0 33%;               /* don't grow, don't shrink, width */
+  flex: 0 0 33%;
   height: 150px;
   width: 150px;
   margin-bottom: 1px;
   background-color: #7586B7;
-  border-radius: 5em 4em 8em 14em / 2em 20em 8em 10em;
-    -moz-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
-    -webkit-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
-  position:relative;
-
-}
-
-.cell {
-  flex: 0 0 33%;               /* don't grow, don't shrink, width */
-  height: 150px;
-  width: 150px;
-  margin-bottom: 1px;
-  background-color: #7586B7;
-  border-radius: 5em 4em 8em 14em / 2em 20em 8em 10em;
-    -moz-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
-    -webkit-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
-  position:relative;
-
 }
 
 img {
@@ -63,42 +39,31 @@ img {
   margin: 10px auto;
 }
 
-.instructions{
-  float: left;
-  border: black;
-  height: 400px;
-  width: 250px;
-  float: top;
-  background-color: #4B5675;
-  border-radius: 5em 4em 8em 14em / 2em 20em 8em 10em;
-    -moz-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
-    -webkit-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
-    position: absolute:absolute;
-  clear: both;
-  left: 10px;
-  position:fixed;
-  margin: 10px;
-  padding: 5px;
-}
-
-.scoreboard{
-  float: right;
+.instructions, .scoreboard{
   border: black;
   height: 400px;
   width: 240px;
   float: top;
-  background-color: rgba(135, 64, 130, 0.71);
-  border-radius: 5em 4em 8em 14em / 2em 20em 8em 10em;
-    -moz-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
-    -webkit-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
-    position: absolute:absolute;
-  clear: both;
-  right: 10px;
-  position:fixed;
   margin: 10px;
   padding: 5px;
+  clear: both;
 }
 
+.instructions{
+  float: left;
+  background-color: #4B5675;
+  left: 10px;
+  position: fixed;
+}
+
+
+.scoreboard{
+  float: right;
+  background-color: rgba(135, 64, 130, 0.71);
+  position:absolute;
+  right: 10px;
+  position:fixed;
+}
 
 .bounce{
   font-size: 50px;
@@ -107,4 +72,13 @@ img {
 
 table {
     width: 100%;
+}
+
+button {
+  font-family: 'Baloo Bhaina', cursive;
+	font-size: 15px;
+	padding: 10px 20px;
+  margin: 10px;
+	border: 2px solid;
+
 }

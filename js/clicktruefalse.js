@@ -115,7 +115,6 @@ var gameLogic = {
       var aVal = gameLogic.game[a];
       var bVal = gameLogic.game[b];
       var cVal = gameLogic.game[c];
-      // debugger;
       win = (aVal === player && bVal === player && cVal === player);
       if (win){
         gameLogic.winNotification(player);

@@ -12,9 +12,8 @@ var players = {
     scoreID: "#p2score"
   }
 };
-
-var hits = 0; // keep track of clicks
-var draw = 0; // keep track of draw
+var hits = 0;
+var draw = 0;
 var currentPlayer = 'x';
 
 $(document).ready(function () {
@@ -25,12 +24,12 @@ $(document).ready(function () {
     if( gameLogic.game[this.id] !== 0 || gameLogic.game === 'gameover' ){
       return;
     }
-    var gamePlay = function(string, cell){
-      var $img = $('<img>').attr('src', players[string].image);
+    var gamePlay = function(player, cell){
+      var $img = $('<img>').attr('src', players[player].image);
       $("#"+ cell).append( $img );
       $('img').addClass("inPlay");
-      gameLogic.addScore(string, cell);
-      if (string === 'x')
+      gameLogic.addScore(player, cell);
+      if (player === 'x')
         {gameLogic.winDetector('x');
         currentPlayer = 'o';
       }else{
@@ -43,8 +42,8 @@ $(document).ready(function () {
     hits++;
 });
 
-//reset
-  $( "#reset" ).on("click", function() {
+  //reset game board
+  $( "button" ).on("click", function() {
     gameLogic.game = [0,0,0,0,0,0,0,0,0],
     $('.inPlay').remove();
     console.log(gameLogic.game)
@@ -52,6 +51,7 @@ $(document).ready(function () {
       .on("click")
       .css('backgroundColor', '#7586B7');
     $('.animated bounce flash').remove();
+    $('.scoreboard').addClass('bounceIn');
     $("body").css('backgroundColor', '#A7CAB1');
     $("h1").html("Play again");
     $('.animated bounce swing rollIn').remove();
@@ -62,7 +62,6 @@ var gameLogic = {
   game: [0,0,0,0,0,0,0,0,0], // game array
 
   win:[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]], // win array
-
 
   addScore: function( currentPlayer, z ) {
     // debugger;
@@ -75,14 +74,13 @@ var gameLogic = {
     var win = false;
     for (var i = 0; i < gameLogic.win.length; i++) {
       var possWins = gameLogic.win[i];
-      var a = possWins[0];//this cycles from indices 1-3 of each set of arrays in 'wins'
+      var a = possWins[0];
       var b = possWins[1];
       var c = possWins[2];
 
       var aVal = gameLogic.game[a];
       var bVal = gameLogic.game[b];
       var cVal = gameLogic.game[c];
-      // debugger;
       win = (aVal === player && bVal === player && cVal === player);
       if (win){
         gameLogic.winNotification(player);
@@ -103,14 +101,12 @@ var gameLogic = {
     $("body").css('backgroundColor', 'red');
     $("h1").html("Player " +  players[ winner ].number  + " won!").addClass('animated bounce swing rollIn');
     $(".scoreboard").addClass('animated swing');
-    // debugger;
     players[ winner ].score++;
     $(players[ winner ].scoreID).html(players[ winner ].score)
     gameLogic.gameOver()
   },
 
   drawNotification: function() {
-    // debugger;
     draw++;
     $('#draw').html(draw);
     $('.cell')
