@@ -7,7 +7,7 @@ body{
   font-family: 'Baloo Bhaina', cursive;
 }
 
-div, button{
+div, button, img{
   border-radius: 5em 4em 8em 14em / 2em 20em 8em 10em;
     -moz-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
     -webkit-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
@@ -41,12 +41,13 @@ img {
 
 .instructions, .scoreboard{
   border: black;
-  height: 400px;
+  height: 500px;
   width: 240px;
   float: top;
   margin: 10px;
   padding: 5px;
   clear: both;
+
 }
 
 .instructions{
@@ -78,6 +79,6 @@ button {
   font-family: 'Baloo Bhaina', cursive;
 	font-size: 15px;
 	padding: 10px 20px;
-  margin: 10px;
+  margin: 5px;
 	border: 2px solid;
 }

@@ -29,8 +29,9 @@ $('.cell').on("click", function(){
   var cellId = this.id;
 
   var bCellId = Math.floor((Math.random() * 8));
-  // if( gameLogic.game[this.id] !== 0 || gameLogic.game === 'gameover' ){
-  //   return;
+  if( gameLogic.game[this.id] !== 0 || gameLogic.game === 'gameover' ){
+    return;
+  }
   var gamePlay = function(cellSelected){
     var $img = $('<img>').attr('src', players.x.image);
     $("#"+ cellSelected).append( $img );
@@ -49,6 +50,8 @@ $('.cell').on("click", function(){
       console.log(bCellId + "game:" + gameLogic.game);
     } else {
       bCellId = gameLogic.game.indexOf(0);
+      var $bimg = $('<img>').attr('src', players.billMurray.image);
+
       $("#"+ bCellId).append( $bimg );
       $('img').addClass("inPlay");
       gameLogic.updateBoardArray('billMurray', bCellId);
