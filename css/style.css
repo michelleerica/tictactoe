@@ -44,13 +44,26 @@ body{
 
 }
 
+.cell {
+  flex: 0 0 33%;               /* don't grow, don't shrink, width */
+  height: 150px;
+  width: 150px;
+  margin-bottom: 1px;
+  background-color: #7586B7;
+  border-radius: 5em 4em 8em 14em / 2em 20em 8em 10em;
+    -moz-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
+    -webkit-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
+  position:relative;
+
+}
+
 img {
   height:130px;
   width: 130px;
   margin: 10px auto;
 }
 
-.instructions {
+.instructions{
   float: left;
   border: black;
   height: 400px;
@@ -66,20 +79,32 @@ img {
   position:fixed;
   margin: 10px;
   padding: 5px;
-
 }
+
+.scoreboard{
+  float: right;
+  border: black;
+  height: 400px;
+  width: 240px;
+  float: top;
+  background-color: rgba(135, 64, 130, 0.71);
+  border-radius: 5em 4em 8em 14em / 2em 20em 8em 10em;
+    -moz-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
+    -webkit-border-radius: 1em 4em 1em 4em / 2em 1em 2em 1em;
+    position: absolute:absolute;
+  clear: both;
+  right: 10px;
+  position:fixed;
+  margin: 10px;
+  padding: 5px;
+}
+
+
 .bounce{
   font-size: 50px;
   color: white;
 }
 
-button{
-  background-color: yellow;
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+table {
+    width: 100%;
 }

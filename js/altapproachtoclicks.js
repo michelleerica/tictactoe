@@ -3,8 +3,10 @@ var xImage = 'img/xicon.png';
 
 
 var hits = 0; // keep track of clicks
-var winX = 0; // keep track of X wins
-var winO = 0; // keep track of O wins
+var win1 = 0; // keep track of P1 wins
+var win2 = 0; // keep track of P2 wins
+var draw = 0; // keep track of draw
+
 
 
 $(document).ready(function () {
@@ -42,7 +44,7 @@ $(document).ready(function () {
     $('.animated bounce flash').remove();
     $("body").css('backgroundColor', '#A7CAB1');
     $("h1").html("Play again");
-    $('.animated bounce swing rollIn').remove ();
+    $('.animated bounce swing rollIn').remove();
     hits = 0;
   });
 
@@ -104,6 +106,7 @@ var gameLogic = {
 
       } else if ((aVal !== player || bVal !== player || cVal !== player) && (hits >= 8 )) {
         gameLogic.drawNotification();
+        return;
       }
     // debugger;
     }
@@ -117,9 +120,23 @@ var gameLogic = {
     $('.grid').addClass('animated bounce flash');
     $("body").css('backgroundColor', 'red');
     $("h1").html("Player " + winner + " won!").addClass('animated bounce swing rollIn');
+    if (winner === 1)
+      {win1++;
+      $('#p1score').html(win1)
+    } else if (winner === 2){
+      win2++;
+      $('#p2score').html(win2)
+    } else {
+      draw++;
+    }
+
+    console.log(winner + "won! The current score is Player 1: " + win1 + " Player 2: " + win2);
   },
 
   drawNotification: function() {
+    // debugger;
+    draw++;
+    $('#draw').html(draw);
     var $gameboard = $('.cell');
     $gameboard
       .css('backgroundColor', 'grey')
