@@ -1,25 +1,26 @@
-var oImage = 'img/heartbleed.png';
-var xImage = 'img/xicon.png';
 
-// var players = {
-//   x: {
-//     score: 0,
-//     image: 'img/xicon.png'
-//   },
-//   o: {
-//     score: 0,
-//     image: 'img/heartbleed.png'
-//   }
-// };
+
+var players = {
+  x: {
+    number: 1,
+    score: 0,
+    image: 'img/xicon.png',
+    scoreID: "#p1score"
+  },
+  o: {
+    number: 2,
+    score: 0,
+    image: 'img/heartbleed.png',
+    scoreID: "#p2score"
+  }
+};
 //
 // var score = players.x.score;
 // var score = players[currentPlayer].score
 
 var hits = 0; // keep track of clicks
-var win1 = 0; // keep track of P1 wins
-var win2 = 0; // keep track of P2 wins
 var draw = 0; // keep track of draw
-var turn = true;
+var turn = 'x';
 
 $(document).ready(function () {
 
@@ -29,22 +30,22 @@ $(document).ready(function () {
       return;
     }
 
-    if (turn === true) { //for hits 2,4,6,8 etc
-      var $imgX = $('<img>').attr('src', xImage);
-      $(this).append( $imgX );
+    if (turn === 'x') { //for hits 2,4,6,8 etc
+      var $img = $('<img>').attr('src', players.x.image);
+      $(this).append( $img );
       $('img').addClass("inPlay");
       gameLogic.trackPlayerOne(this.id);
-      gameLogic.winDetector(1);
-      turn = false;
+      gameLogic.winDetector('x');
+      turn = 'o';
       // debugger;
 
-    } else if (turn === false) { // for hits 1,3,5,7
-      var $imgO = $('<img>').attr('src', oImage);
-      $(this).append( $imgO);
+    } else if (turn === 'o') { // for hits 1,3,5,7
+      var $img = $('<img>').attr('src', players.o.image);
+      $(this).append( $img);
       $('img').addClass("inPlay");
       gameLogic.trackPlayerTwo(this.id);
-      gameLogic.winDetector(2);
-      turn = true;
+      gameLogic.winDetector("o");
+      turn = 'x';
     }
 
     console.log(gameLogic.game);
@@ -71,38 +72,13 @@ var gameLogic = {
 
   win:[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]], // win array
 
-  trackPlayerOne: function (y) {
-    gameLogic.game[y] = 1;
+  trackPlayerOne: function (x) {
+    gameLogic.game[x] = "x";
   },
 
-  trackPlayerTwo: function (x) {
-    gameLogic.game[x] = 2;
+  trackPlayerTwo: function (o) {
+    gameLogic.game[o] = "o";
   },
-
- //  arrayConvertp1: function (){
- //  var indexes = [];
- //  for(var i=0; i<gameLogic.game.length; i++) {
- //    if(gameLogic.game[i] === 1){
- //     indexes.push(i);
- //     var listOne = indexes.join(',');
- //     return listOne;
- //     console.log(gameLogic.game)
- //   } // close if
- //     } //closes for loop
- //   },//closes function
- //
- //
- // arrayConvertp2: function (){
- // var indexes = [];
- // for(var i=0; i<gameLogic.game.length; i++) {
- //  if(gameLogic.game[i] === 2){
- //    indexes.push(i);
- //    var listTwo = indexes.join(',');
- //    return listTwo;
- //    console.log(gameLogic.game);
- //    } //close if
- //  }//close for
- //  },//closes function
 
   winDetector: function (player) {
     var win = false;
@@ -119,8 +95,6 @@ var gameLogic = {
       win = (aVal === player && bVal === player && cVal === player);
       if (win){
         gameLogic.winNotification(player);
-        // debugger;
-        // $('.cell').off('click');
         return player;
       }
 
@@ -136,19 +110,15 @@ var gameLogic = {
   winNotification: function(winner) {
     $('.cell')
       .css('backgroundColor', 'red')
-      // .off('click');
     $('.grid').addClass('animated bounce flash');
     $("body").css('backgroundColor', 'red');
-    $("h1").html("Player " + winner + " won!").addClass('animated bounce swing rollIn');
+    $("h1").html("Player " +  players[ winner ].number  + " won!").addClass('animated bounce swing rollIn');
     $(".scoreboard").addClass('animated swing');
+    // debugger;
 
-    if (winner === 1)
-      {win1++;
-      $('#p1score').html(win1)
-    } else if (winner === 2){
-      win2++;
-      $('#p2score').html(win2)
-    }
+    players[ winner ].score++;
+    $(players[ winner ].scoreID).html(players[ winner ].score)
+
     gameLogic.gameOver()
   },
 
@@ -167,8 +137,7 @@ var gameLogic = {
 
   gameOver: function () {
     gameLogic.game = 'gameover';
-    // $('.cell').off('click');
-
+    var turn = 'x';
   }
 
 } //close object
