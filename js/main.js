@@ -1,108 +1,124 @@
-var oImage = 'http://heartbleed.com/heartbleed.png';
-var xImage = 'http://vignette2.wikia.nocookie.net/animal-jam-clans-1/images/2/2e/Transparent_City_Sticker.png/revision/latest?cb=20170111222644';
-
-var aImage = "http://ph.phonebooky.com/blog/wp-content/uploads/2015/03/balloons-background.png";
-var hits = 0; // keep track of clicks
+var players = {
+  x: {
+    number: 1,
+    score: 0,
+    image: 'img/xicon.png',
+    scoreID: "#p1score"
+  },
+  o: {
+    number: 2,
+    score: 0,
+    image: 'img/heartbleed.png',
+    scoreID: "#p2score"
+  }
+};
+var hits = 0;
+var draw = 0;
+var currentPlayer = 'x';
 
 $(document).ready(function () {
+  $('.cell').on("click", function(){
+    var cellID = this.id;
 
-  $('.cell').click(function(){
-    if ((hits === 9) && (gameLogic.winDetector(2) === false) && (gameLogic.winDetector(1) === false)){
-      console.log('draw');
-    }else if (hits % 2 !== 0) { //for hits 2,4,6,8 etc
-      var $imgX = $('<img>').attr('src', xImage);
-      $(this).append( $imgX );
-      gameLogic.trackPlayerTwo(this.id);
-      gameLogic.winDetector(2);
-      // debugger;
-
-    } else if (hits % 2 === 0) { // for hits 1,3,5,7
-        var $imgO = $('<img>').attr('src', oImage);
-        $(this).append( $imgO);
-        gameLogic.trackPlayerOne(this.id);
-        gameLogic.winDetector(1);
-    } else if ((hit === 8) && (gameLogic() === false)) {
-      console.log('draw')
+    if( gameLogic.game[this.id] !== 0 || gameLogic.game === 'gameover' ){
+      return;
     }
-
-    console.log(gameLogic.game);
+    var gamePlay = function(player, cellSelected){
+      var $img = $('<img>').attr('src', players[player].image);
+      $("#"+ cellSelected).append( $img );
+      $('img').addClass("inPlay");
+      gameLogic.updateBoardArray(player, cellSelected);
+      if (player === 'x')
+        {gameLogic.winDetector('x');
+        currentPlayer = 'o';
+      }else{
+        gameLogic.winDetector('o');
+        currentPlayer ='x'
+      }
+    }
+    gamePlay(currentPlayer, cellID);
     hits++;
-    if (gameLogic.winDetector() === true){
-      alert("gameover!");
-    }
-  });
+});
+
+  //reset game board
+  $( "button" ).on("click", function() {
+    gameLogic.game = [0,0,0,0,0,0,0,0,0],
+    $('.inPlay').remove();
+    $('.cell')
+      .on("click")
+      .css('backgroundColor', '#7586B7');
+    $('.animated bounce flash').remove();
+    $('.scoreboard').addClass('bounceIn');
+    $("body").css('backgroundColor', '#A7CAB1');
+    $("h1").html("Play again");
+    $('.animated bounce swing rollIn').remove();
+    hits = 0;
+  })
 
 var gameLogic = {
-  game: [0,0,0,0,0,0,0,0,0], // game array
+  game: [0,0,0,0,0,0,0,0,0], // array depicting gameboard
 
-  win:[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]], // win array
+  win:[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]], //  array of possible wins
 
-  trackPlayerOne: function (y) {
-    gameLogic.game[y] = 1;
+  //function to update gameboard array
+  updateBoardArray: function( currentPlayer, z ) {
+    if (players[ currentPlayer ].number  === 1){
+      gameLogic.game[z] = "x";
+    } else { gameLogic.game[z] = "o"}
   },
 
-  trackPlayerTwo: function (x) {
-    gameLogic.game[x] = 2;
-  },
-
-  arrayConvertp1: function (){
-  var indexes = [];
-  for(var i=0; i<gameLogic.game.length; i++) {
-    if(gameLogic.game[i] === 1){
-     indexes.push(i);
-     var listOne = indexes.join(',');
-     console.log("test line 49: " +listOne);
-     return listOne;
-     console.log(gameLogic.game)
-   } // close if
-     } //closes for loop
-   },//closes function
-
-
- arrayConvertp2: function (){
- var indexes = [];
- for(var i=0; i<gameLogic.game.length; i++) {
-  if(gameLogic.game[i] === 2){
-    indexes.push(i);
-    var listTwo = indexes.join(',');
-    console.log("test line 62: " +listTwo);
-    return listTwo;
-    console.log(gameLogic.game);
-    } //close if
-  }//close for
-  },//closes function
-
+  //function to detect if a player has won
   winDetector: function (player) {
+    var win = false;
     for (var i = 0; i < gameLogic.win.length; i++) {
       var possWins = gameLogic.win[i];
-      var a = possWins[0];//this cycles from indices 1-3 of each set of arrays in 'wins'
+      var a = possWins[0];
       var b = possWins[1];
       var c = possWins[2];
 
       var aVal = gameLogic.game[a];
       var bVal = gameLogic.game[b];
       var cVal = gameLogic.game[c];
-
-      if (aVal === player && bVal === player && cVal === player){
-      gameLogic.notification();
-        console.log('winner');
-        return true;
+      win = (aVal === player && bVal === player && cVal === player);
+      if (win){
+        gameLogic.winNotification(player);
+        return player;
       }
-      // else if (winner === false)
-      //   { if (hits>=8)
-      //     { alert("It's a draw. No one wins")
-      // return}
-      // }
-    // debugger;
-      }
-    },
-  notification: function() {
-    var $gameboard = $('.cell');
-    $gameboard.css('backgroundColor', 'red');
-    // var $winner = $('<h3>').addClass('winner').attr('', aImage);
-    // $('body').append( $imga);
+    } // for
 
+    if ( !win && hits >= 8 ){
+        gameLogic.drawNotification();
+        return false;
+    }
+  },
+
+  //function to alert of win
+  winNotification: function(winner) {
+    $('.cell')
+      .css('backgroundColor', 'red')
+    $('.grid').addClass('animated bounce flash');
+    $("body").css('backgroundColor', 'red');
+    $("h1").html("Player " +  players[ winner ].number  + " won!").addClass('animated bounce swing rollIn');
+    $(".scoreboard").addClass('animated swing');
+    players[ winner ].score++;
+    $(players[ winner ].scoreID).html(players[ winner ].score)
+    gameLogic.gameOver()
+  },
+  //function to alert there is a draw
+  drawNotification: function() {
+    draw++;
+    $('#draw').html(draw);
+    $('.cell')
+      .css('backgroundColor', 'grey')
+    $('.grid').addClass('animated bounce flash');
+    $("body").css('backgroundColor', 'rgba(121, 119, 122, 0.42)');
+    $("h1").html("It's a draw").addClass('animated bounce swing rollIn');
+    gameLogic.gameOver()
+  },
+  //function to reflect game is over
+  gameOver: function () {
+    gameLogic.game = 'gameover';
+    var currentPlayer = 'x';
   }
-} //close objec
-
+} //close object
 }); //end of .ready
