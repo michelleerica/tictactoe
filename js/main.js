@@ -31,7 +31,7 @@ $(document).ready(function () {
       if (player === 'x')
         {gameLogic.winDetector('x');
         currentPlayer = 'o';
-      }else{
+      } else if (player === 'o') {
         gameLogic.winDetector('o');
         currentPlayer ='x'
       }
@@ -41,7 +41,7 @@ $(document).ready(function () {
 });
 
   //reset game board
-  $( "button" ).on("click", function() {
+  $( ".resetButton" ).on("click", function() {
     gameLogic.game = [0,0,0,0,0,0,0,0,0],
     $('.inPlay').remove();
     $('.cell')
@@ -95,9 +95,9 @@ var gameLogic = {
   //function to alert of win
   winNotification: function(winner) {
     $('.cell')
-      .css('backgroundColor', 'red')
+      .css('backgroundColor', '#FDF0D5')
     $('.grid').addClass('animated bounce flash');
-    $("body").css('backgroundColor', 'red');
+    $("body").css('backgroundColor', '#D81E5B');
     $("h1").html("Player " +  players[ winner ].number  + " won!").addClass('animated bounce swing rollIn');
     $(".scoreboard").addClass('animated swing');
     players[ winner ].score++;
@@ -118,7 +118,7 @@ var gameLogic = {
   //function to reflect game is over
   gameOver: function () {
     gameLogic.game = 'gameover';
-    var currentPlayer = 'x';
+    currentPlayer = 'x';
   }
 } //close object
 }); //end of .ready
