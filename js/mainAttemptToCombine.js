@@ -15,7 +15,7 @@ var players = {
     number: 'billMurray',
     score: 0,
     image: 'http://www.fillmurray.com/125/125',
-    scoreID: "#p2score"
+    scoreID: "#p3score"
   }
 };
 var hits = 0;
@@ -65,8 +65,6 @@ $('.cell').on("click", function(){
       $("#"+ bCellId).append( $bimg );
       $('img').addClass("inPlay");
       gameLogic.updateBoardArray('billMurray', bCellId);
-      console.log(bCellId + "game:" + gameLogic.game);
-
     }
     gameLogic.winDetector('billMurray');
       // currentPlayer ='x';
@@ -75,7 +73,20 @@ $('.cell').on("click", function(){
   hits++;
 });
   //click to reset game board
-$( ".resetButton" ).on("click", function() {
+  //
+  // var reset = function(){
+  //   gameLogic.game = [0,0,0,0,0,0,0,0,0],
+  //   $('.inPlay').remove();
+  //   $('.cell').css('backgroundColor', '#7586B7');
+  //   $('.animated bounce flash').remove();
+  //   $('.scoreboard').addClass('bounceIn');
+  //   $("body").css('backgroundColor', '#A7CAB1');
+  //   $("h1").html("Play again");
+  //   $('.animated bounce swing rollIn').remove();
+  //   hits = 0;
+  // }
+
+$( ".resetButton" ).on("click", function(){
   gameLogic.game = [0,0,0,0,0,0,0,0,0],
   $('.inPlay').remove();
   $('.cell').css('backgroundColor', '#7586B7');
@@ -87,6 +98,7 @@ $( ".resetButton" ).on("click", function() {
   hits = 0;
 })
 //2 player mode
+
 $( ".twoPlayerButton" ).on("click", function() {
   // gameLogic.game = [0,0,0,0,0,0,0,0,0],
   // $('.inPlay').remove();
@@ -94,17 +106,21 @@ $( ".twoPlayerButton" ).on("click", function() {
   console.log('button works');
   // currentPlayer='o';
   // billMode = false;
+  // hits = 0;
+
 })
 
   //bill mode
 $( ".playBillButton" ).on("click", function() {
   gameLogic.game = [0,0,0,0,0,0,0,0,0],
   $('.inPlay').remove();
-  alert('bill button works');
+  alert('Bill Murray mode');
   console.log('bill button works');
   currentPlayer = 'x';
   billMode = true;
   console.log(billMode + currentPlayer + gameLogic.game)
+  hits = 0;
+
 })
 
 var gameLogic = {
@@ -119,8 +135,8 @@ var gameLogic = {
     } else if (players[ currentPlayer ].number  === 2){
       gameLogic.game[z] = "o";
     } else {
-      gameLogic.game[z] = "billMurray"};
-    console.log(gameLogic.game);
+      gameLogic.game[z] = "billMurray"
+    };
   },
 
   //function to detect if a player has won
@@ -153,13 +169,14 @@ var gameLogic = {
 
   //function to alert of win
   winNotification: function(winner) {
+    players[ winner ].score++;
     $('.cell').css('backgroundColor', '#FDF0D5');
     $('.grid').addClass('animated bounce flash');
     $("body").css('backgroundColor', '#D81E5B');
-    $("h1").html("Player " +  players[ winner ].number  + " won!").addClass('animated bounce swing rollIn');
+    $("h1").html("Player " +  players[ winner ].number  + " won!").addClass('notification animated bounce swing rollIn');
     $(".scoreboard").addClass('animated swing');
-    players[ winner ].score++;
-    $(players[ winner ].scoreID).html(players[ winner ].score)
+    $(players[ winner ].scoreID).html(players[ winner ].score);
+
     gameLogic.gameOver()
   },
   //function to alert there is a draw
@@ -169,7 +186,7 @@ var gameLogic = {
     $('.cell').css('backgroundColor', 'grey');
     $('.grid').addClass('animated bounce flash');
     $("body").css('backgroundColor', 'rgba(121, 119, 122, 0.42)');
-    $("h1").html("It's a draw").addClass('animated bounce swing rollIn');
+    $("h1").html("It's a draw").addClass('notification animated swing rollIn');
     gameLogic.gameOver()
   },
   //function to reflect game is over
