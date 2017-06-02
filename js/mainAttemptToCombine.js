@@ -74,54 +74,18 @@ $('.cell').on("click", function(){
 });
   //click to reset game board
   //
-  // var reset = function(){
-  //   gameLogic.game = [0,0,0,0,0,0,0,0,0],
-  //   $('.inPlay').remove();
-  //   $('.cell').css('backgroundColor', '#7586B7');
-  //   $('.animated bounce flash').remove();
-  //   $('.scoreboard').addClass('bounceIn');
-  //   $("body").css('backgroundColor', '#A7CAB1');
-  //   $("h1").html("Play again");
-  //   $('.animated bounce swing rollIn').remove();
-  //   hits = 0;
-  // }
-
-$( ".resetButton" ).on("click", function(){
-  gameLogic.game = [0,0,0,0,0,0,0,0,0],
-  $('.inPlay').remove();
-  $('.cell').css('backgroundColor', '#7586B7');
-  $('.animated bounce flash').remove();
-  $('.scoreboard').addClass('bounceIn');
-  $("body").css('backgroundColor', '#A7CAB1');
-  $("h1").html("Play again");
-  $('.animated bounce swing rollIn').remove();
-  hits = 0;
-})
-//2 player mode
-
-$( ".twoPlayerButton" ).on("click", function() {
+// {
   // gameLogic.game = [0,0,0,0,0,0,0,0,0],
   // $('.inPlay').remove();
-  alert('button works');
-  console.log('button works');
-  // currentPlayer='o';
-  // billMode = false;
+  // $('.cell').css('backgroundColor', '#7586B7');
+  // $('.animated bounce flash').remove();
+  // $('.scoreboard').addClass('bounceIn');
+  // $("body").css('backgroundColor', '#A7CAB1');
+  // $("h1").html("Play again");
+  // $('.animated bounce swing rollIn').remove();
   // hits = 0;
-
-})
-
-  //bill mode
-$( ".playBillButton" ).on("click", function() {
-  gameLogic.game = [0,0,0,0,0,0,0,0,0],
-  $('.inPlay').remove();
-  alert('Bill Murray mode');
-  console.log('bill button works');
-  currentPlayer = 'x';
-  billMode = true;
-  console.log(billMode + currentPlayer + gameLogic.game)
-  hits = 0;
-
-})
+// })
+//2 player mode
 
 var gameLogic = {
   game: [0,0,0,0,0,0,0,0,0], // array depicting gameboard
@@ -195,4 +159,40 @@ var gameLogic = {
     currentPlayer = 'x';
   }
 } //close object
+
+
+var reset = function(){
+  gameLogic.game = [0,0,0,0,0,0,0,0,0];
+  $('.inPlay').remove();
+  $('.cell').css('backgroundColor', '#7586B7');
+  $('.animated bounce flash').remove();
+  $('.scoreboard').addClass('bounceIn');
+  $("body").css('backgroundColor', '#A7CAB1');
+  $("h1").html("Play again");
+  $('.animated bounce swing rollIn').remove();
+  hits = 0;
+};
+
+  $( ".resetButton" ).on("click", reset );
+
+  $( ".twoPlayerButton" ).on("click", function() {
+    reset();
+    alert('button works');
+    currentPlayer='o';
+    billMode = false;
+    hits = 0;
+  });
+
+    //bill mode
+  $( ".playBillButton" ).on("click", function() {
+    reset()
+    console.log('bill button works');
+    currentPlayer = 'x';
+    billMode = true;
+    hits = 0;
+    $("h1").html("You vs Bill");
+
+
+  });
+
 }); //end of .ready
