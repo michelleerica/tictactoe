@@ -16,7 +16,7 @@ This project is an interactive tic tac toe game, which can be played with two pl
 #### What it does
 Through click handlers, the unique ID of the square being played is obtained an an image node is created and appended to that particular square. After the marker (_X_ or _O_) is placed on the board, a check is run against an array representing the game board to see if the game has been won. If the game is won, or if the board is full, players will be notified of the win / draw. In the absence of a win, provided there continues to be squares left on the board, the next player has a turn.
 
-In _Bill Murray mode_, the computer takes the role of the second player. Bill's moves are selected at random (``Math.random`` to be exact). If the random number selected correlates with a square on the game board already used / index in the array representing the game board which has already been taken, the computer will take the next available square.
+In _Bill Murray mode_, the computer takes the role of the second player. Bill's moves are selected at random (``Math.random`` to be exact). If the random number selected correlates with a square on the game board already used / index in the array representing the game board which has already been taken, the computer will take the next available square. As a result, a more interesting game, is to try to let Bill Murray win.
 
 #### Libraries used
 - jQuery
@@ -29,3 +29,4 @@ In _Bill Murray mode_, the computer takes the role of the second player. Bill's 
 - reset board - available anytime (i.e. during play and at end of game)
 
 #### Known bugs
+- Animation for win/draw only works on the first win/draw event (first event only)

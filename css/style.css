@@ -14,6 +14,26 @@ div, button, img{
   position:relative;
 }
 
+img {
+  height:130px;
+  width: 130px;
+  margin: 10px auto;
+}
+table {
+    width: 100%;
+}
+
+button {
+  font-family: 'Baloo Bhaina', cursive;
+	font-size: 15px;
+	padding: 10px 20px;
+  margin: 5px;
+	border: 2px solid;
+}
+
+h1 {
+  font-size: 50px;
+}
 .grid {
   display: flex;
   flex-wrap: wrap;
@@ -31,12 +51,6 @@ div, button, img{
   width: 150px;
   margin-bottom: 2px;
   background-color: #7586B7;
-}
-
-img {
-  height:130px;
-  width: 130px;
-  margin: 10px auto;
 }
 
 .instructions, .scoreboard{
@@ -57,7 +71,6 @@ img {
   position: fixed;
 }
 
-
 .scoreboard{
   float: right;
   background-color: rgba(135, 64, 130, 0.71);
@@ -69,16 +82,4 @@ img {
 .notification{
   font-size: 50px;
   color: white;
-}
-
-table {
-    width: 100%;
-}
-
-button {
-  font-family: 'Baloo Bhaina', cursive;
-	font-size: 15px;
-	padding: 10px 20px;
-  margin: 5px;
-	border: 2px solid;
 }

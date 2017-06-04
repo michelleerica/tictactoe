@@ -1,3 +1,4 @@
+//players object has three properties, allowing for two player mode and player vs bill murray (i.e. computer player)
 var players = {
   x: {
     number: 1,
@@ -25,15 +26,24 @@ var currentPlayer = "x";
 var billMode = false;
 var endGame = false;
 
+
 $(document).ready(function () {
-//click box for image to appear and checks to run
+
+//action: click function on cell class used to obtain ID of specific div being clicked. div ID used as an input to gamePlay function to append the image token to relevant div (i.e. square). A method within the gameLogic object, which checks for a win (explained below) is called in this function.
+
+//input: ID of div clicked (obtained from "on click" function), current player (set to x on line 25, but switches between o and x). If billMode is triggered, then player will be fixed to x and lines 69-83 will run, which uses Math.random (line 39) to determine which square the Bill Murray token will take.
+
+//
   $('.cell').on("click", function(){
     var cellId = this.id;
     var bCellId = parseInt((Math.random() * 8));
     if ( (gameLogic.game[this.id] !== 0) || (endGame === true) ){
       return;
     }
+
     var gamePlay = function(player, cellSelected){
+      $("h1").html("Player " + players[player].number + "'s turn");
+
       endGame = false;
       var $img = $('<img>').attr('src', players[player].image);
       $("#"+ cellSelected).append( $img );
@@ -77,11 +87,15 @@ $(document).ready(function () {
   });
 
   var gameLogic = {
-    game: [0,0,0,0,0,0,0,0,0], // array depicting gameboard
 
-    win:[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]], //  array of possible wins
+    // array depicting gameboard at start of game
+    game: [0,0,0,0,0,0,0,0,0],
 
-    //function to update gameboard array
+    //  array setting out the indices which need to match within the game array for there to be a win
+    win:[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]],
+
+    // this function updates the game array to reflect what is happening on screen. i.e. game array on line 92 is updated with x, o and billMurray to reflect which squares are taken. Div IDs in HTML are consistent with array indices.
+
     updateBoardArray: function( currentPlayer, z ) {
       if (players[ currentPlayer ].number  === 1){
         gameLogic.game[z] = "x";
@@ -93,7 +107,8 @@ $(document).ready(function () {
       };
     },
 
-    //function to detect if a player has won
+    //action: this function takes the values in the game array (line 89) which correspond with the indices of the win array (line 95) to check if they match. If all three are the same as the player who just moved, a win is detected and the winNotification method is triggered. If there is no win and there are are 8 clicks of more for two player mode, or 4 clicks or more for billMode, a draw is identified.
+
     winDetector: function (player) {
       for (var i = 0; i < gameLogic.win.length; i++) {
         var possWins = gameLogic.win[i];
@@ -122,7 +137,7 @@ $(document).ready(function () {
       }
     },
 
-    //function to alert of win
+    //action: uses the DOM and jquery to update screen to notify player/s of the win. Utilises animate.css library.
     winNotification: function(winner) {
       players[ winner ].score++;
       $('.cell').css('backgroundColor', '#FDF0D5');
@@ -139,7 +154,8 @@ $(document).ready(function () {
       gameLogic.gameOver()
       return;
     },
-    //function to alert there is a draw
+
+    //action: uses the DOM and jquery to update screen to notify player/s of a draw. Utilises animate.css library.
     drawNotification: function() {
       draw++;
       $('#draw').html(draw);
@@ -158,7 +174,7 @@ $(document).ready(function () {
     }
   } //close gameLogic object
 
-
+  //action: this function resets the game when the resetButton is clicked. Upon reset, the game array reverts to its original state (all zero's), and the DOM is manipulated to reflect its' pre-win/draw state.
   var reset = function(){
     gameLogic.game = [0,0,0,0,0,0,0,0,0];
     $('.inPlay').remove();
@@ -174,14 +190,16 @@ $(document).ready(function () {
 
   $( ".resetButton" ).on("click", reset );
 
+  // function to allow twoPlayer mode to be called on click of twoPlayerButton
   $( ".twoPlayerButton" ).on("click", function() {
     reset();
     currentPlayer='o';
     billMode = false;
     hits = 0;
+    $("h1").html("Two player mode");
   });
 
-    //bill mode
+  // function to allow billMode mode to be called on click of playBillButton.
   $( ".playBillButton" ).on("click", function() {
     reset()
     currentPlayer = 'x';
